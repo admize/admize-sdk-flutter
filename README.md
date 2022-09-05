@@ -1,9 +1,8 @@
-[Admize Android SDK](https://github.com/admize/admize-sdk-flutter/blob/main/README.md)
+[Admize Flutter 연동](https://github.com/admize/admize-sdk-flutter/blob/main/README.md)
 ====
-- SDK 파일 용량은 1MB이며, 최신 버전의 Admize SDK 사용을 권장합니다.
-- 최신 버전의 Android Studio 사용을 권장합니다.
-- JDK11이상
-- Admize SDK는 Android 5.0(Lollipop, API Level 21) 이상 기기에서 동작합니다. 
+- Flutter 앱과 연동하는 SDK 파일 용량은 1MB이며, 최신 버전의 Admize SDK 사용을 권장합니다.
+- Flutter 연동 시 최신 버전의 Android Studio 사용을 권장합니다.
+- Flutter 연동은 Android 5.0(Lollipop, API Level 21) 이상 기기에서 동작합니다. 
 - 또한 [Google Play의 대상 API 레벨 요구사항](https://developer.android.com/distribute/best-practices/develop/target-sdk?hl=ko)을 충족하기 위해서는 targetSdkVersion 30이상, compileSdkVersion 30이상을 적용하여야 합니다.(2021년 8월부터 적용)
 - Lifecycle에 따라 pause/resume/destroy API를 호출하지 않을 경우, 광고 수신에 불이익을 받을 수 있습니다.
 
@@ -14,7 +13,7 @@ Admize Android SDK를 Flutter와 연동하기 위해서는 아래와 같은 사�
 2) 연동 요청 시 매체 등록을 위해 'Bundle(Package)', 'StoreURL', 'AppName(AndroidManifest.xml 파일 <application> 태그의 label 속성값 확인)'을 연동 담당자에게 전달 합니다.
 3) 매체 등록 후 담당자를 통해 APP 소유자에게 발급되는 고유 ID(publihser uid, media uid, placement uid)를 제공 받습니다.
 
-자세한 SDK 연동 방법은 [Flutter 연동 가이드](https://github.com/admize/admize-sdk-android/blob/main/Android%20SDK%20%EC%97%B0%EB%8F%99%20%EA%B0%80%EC%9D%B4%EB%93%9C.md) 에서 확인하실 수 있습니다.
+자세한 SDK 연동 방법은 [Flutter 연동 가이드](https://github.com/admize/admize-sdk-flutter/blob/main/Flutter%20%EC%97%B0%EB%8F%99%20%EA%B0%80%EC%9D%B4%EB%93%9C.md) 에서 확인하실 수 있습니다.
 
 공지사항 (필독)
 ----
