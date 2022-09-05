@@ -1,0 +1,56 @@
+group 'io.admize.sdk.flutter.admize_flutter_sdk'
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.2'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+          // Admize SDK Repository
+        maven {
+            url "s3://repo.admize.io/releases"
+            credentials(AwsCredentials) {
+                accessKey "AKIA5XG4MQG6UOZLGC4Q"
+                secretKey "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"
+            }
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 32
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 32
+        versionCode 10000
+        versionName "1.0.0"
+    }
+}
+
+dependencies{
+
+    // Google play service 디펜던시 for GAID.
+    implementation 'com.google.android.gms:play-services-ads-identifier:17.0.1'
+
+    // Google play service 디펜던시 for App Set ID.
+    implementation 'com.google.android.gms:play-services-appset:16.0.0'
+
+    implementation 'io.admize.sdk.android:admize-sdk-android:1.0.0'
+}
