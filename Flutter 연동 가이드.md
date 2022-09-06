@@ -25,6 +25,9 @@
     * [lib/src/ad_listeners.dart](#lib/src/ad_listeners.dart--자세한-내용은-admizesample-참조)
     * [lib/src/mobile_ads.dart](#lib/src/mobile_ads.dart--자세한-내용은-admizesample-참조)
     * [lib/admize_mobile_ads.dart](#lib/admize_mobile_ads.dart--자세한-내용은-admizesample-참조)    
+4. [지면 자동생성](#4-지면-자동생성)
+5. [아동 대상 서비스 취급용 '태그' 설정](#5-아동-대상-서비스-취급용-태그-설정)
+6. [Class Reference](#6-class-reference)
 
 - - - 
 # 1. Admize 시작하기
@@ -1331,16 +1334,16 @@ public class FlutterPlatformView implements PlatformView {
 
 - Lifecycle에 따라 AdmizeAdView의 pause/resume/destroy API를 호출하지 않을 경우, 광고 수신에 불이익을 받을 수 있습니다.
 
-### `AdmizeAdRequest 설정방법`
+### `AdRequest 설정방법`
 
 Adinfo|설 명
 ---|---
-admizeAdType()|광고 종류를 설정합니다. 필수 값이며 "BANNER", "INTERSTITIAL"을 설정할 수 있습니다.
-publisherUid()|APP 등록 후 APP 소유자에게 발급되는 고유 ID입니다. 필수 값이며 발급 관련한 자세한 내용은 <ops_admize@fsn.co.kr>로 문의바랍니다.
-placementUid()|지면 ID로 게재할 광고의 위치에 부여되는 고유 ID입니다. 필수 값이며 발급 관련한 자세한 내용은 <ops_admize@fsn.co.kr>로 문의바랍니다.
-mediaUid()|APP 등록 후 부여 받은 media uid 입력합니다. 필수 값이며 만약, 설정하지 않으면 광고가 표시가 되지 않습니다. AndroidManifest.xml에서 아래와 같이 설정을 하거나, AdmizeAdRequest의 mediaUid() 둘 중 한 곳에 media uid가 반드시 선언되어야 합니다.
-admizeMultiBidsList()|지원하는 배너 사이즈입니다. admizeAdType을 "BANNER"로 지정한 경우 필수 값이며 "BANNER320x50", "BANNER320x100", "BANNER300x250"을 지원합니다.
-setTest()|테스트 모드를 지원합니다. 옵션값이며 true일 경우 테스트 광고가 보여지고, false일 경우 실제 광고가 보여집니다.테스트 광고와 관련한 자세한 내용은 <ops_admize@fsn.co.kr>로 문의바랍니다.
+admizeAdType|광고 종류를 설정합니다. 필수 값이며 AdType.banner(="BANNER"), AdType.interstitial(="INTERSTITIAL")을 설정할 수 있습니다.
+publisherUid|APP 등록 후 APP 소유자에게 발급되는 고유 ID입니다. 필수 값이며 발급 관련한 자세한 내용은 <ops_admize@fsn.co.kr>로 문의바랍니다.
+placementUid|지면 ID로 게재할 광고의 위치에 부여되는 고유 ID입니다. 필수 값이며 발급 관련한 자세한 내용은 <ops_admize@fsn.co.kr>로 문의바랍니다.
+mediaUid|APP 등록 후 부여 받은 media uid 입력합니다. 필수 값이며 만약, 설정하지 않으면 광고가 표시가 되지 않습니다. AndroidManifest.xml에서 아래와 같이 설정을 하거나, AdmizeAdRequest의 mediaUid() 둘 중 한 곳에 media uid가 반드시 선언되어야 합니다.
+admizeMultiBidsList|지원하는 배너 사이즈입니다. admizeAdType을 AdType.banner(="BANNER")로 지정한 경우 필수 값이며 AdSize.smallBanner(="BANNER320x50"), AdSize.mediumRectangleBanner(="BANNER320x100"), AdSize.largeBanner(="BANNER300x250")을 지원합니다.
+setTest|테스트 모드를 지원합니다. 옵션값이며 true일 경우 테스트 광고가 보여지고, false일 경우 실제 광고가 보여집니다.테스트 광고와 관련한 자세한 내용은 <ops_admize@fsn.co.kr>로 문의바랍니다.
 
 # 3. Flutter 프로젝트에 main.dart 수정하기
 
@@ -1963,6 +1966,67 @@ export 'src/mobile_ads.dart';
 export 'src/ad_containers.dart';
 export 'src/ad_listeners.dart';
 ```
+
+# 4. 지면 자동생성
+
+새로운 지면의 추가를 원하시는 경우 아래의 두 가지 방법 중 선택합니다.
+1) Admize 담당자에게 새로운 지면에 적용할 placement uid 추가 발급 요청
+2) 추가할 지면에 placement uid를 직접 생성 후 요청 시 지면 자동 생성
+- 새로운 지면에서 요청 발생 시 자동으로 지면이 신규 생성됩니다.
+- placement uid 생성 기준은 8자리 이내의 숫자로 생성합니다. (예시 : 1, 12345, 10000001)
+- 다른 지면과 placement uid가 중복되지 않도록 주의
+- 지면이 자동으로 생성 되기 까지 최대 5분이 소요 될 수 있으며, 생성 되는 시간 동안에는 응답 에러가 발생 할 수 있습니다.
+
+# 5. 아동 대상 서비스 취급용 '태그' 설정
+
+아동대상 콘텐츠로 지정한 경우 관심 기반 광고 및 리마케팅 광고 등이 필터링 됩니다.
+		
+- google families policy : https://play.google.com/about/families/#!?zippy_activeEl=designed-for-families#designed-for-families
+- coppa : https://www.ftc.gov/tips-advice/business-center/privacy-and-security/children's-privacy
+
+##### COPPA에 따라 콘텐츠를 아동 대상으로 지정하려면 'coppaEnabled(true)' 로 호출 한다.
+
+```dart
+        request: const AdRequest(coppaEnabled: true)
+```
+##### COPPA에 따라 콘텐츠를 아동 대상으로 지정하지 않으려면 'coppaEnabled(false)' 로 호출 한다.
+```dart
+        request: const AdRequest(coppaEnabled: false)
+```
+ \* coppaEnabled를 호출하지 않으면 아동 대상 콘텐츠 인 것으로 간주합니다.
+
+# 6. Class Reference
+
+배너 광고
+------------------------------
+BannerAd[광고 뷰 클래스]||
+---|---
+BannerAd(BannerAdListener, AdRequest)   |광고 뷰 생성자
+loadAd(Context)	|광고 요청
+clearView()	|광고 소멸
+
+BannerAdListener||
+---|---
+onAdLoaded(String message)    |광고 노출 성공 시 호출됨. 
+onAdFailedToLoad(int statusCode, String message)    |광고 노출 실패 시 호출됨. 오류 코드와 내용이 statusCode, message 변수에 설정됨
+onAdOpened()    |webView를 통해 랜딩 페이지가 열린 경우 호출됨
+onAdClicked()   |광고가 클릭되었을 때 호출됨.
+onAdClosed()|광고를 닫았을 때 호출됨.
+
+전면 광고_풀스크린형
+---------------------------------
+InterstitialAd||
+---|---
+loadAd(AdRequest, InterstitialAdLoadCallback)	|광고 정보 설정
+show()	|수신한 전면 광고를 노출
+
+InterstitialAdLoadCallback||
+---|---
+onAdLoaded(AdmizeInterstitialAd)	|광고 노출 성공 시 호출됨.
+onAdFailedToLoad(String message)	|광고 노출 실패 시 호출됨. 오류 코드와 내용이 statusCode, message 변수에 설정됨
+onAdOpened()    |webView를 통해 랜딩 페이지가 열린 경우 호출됨
+onAdClicked()   |광고가 클릭되었을 때 호출됨.
+onAdClosed()|광고를 닫았을 때 호출됨.
 
 > admize SDK 설치 관련하여 문의 사항은 고객센터 **1544-8867**
 > 또는 ops_admize@fsn.co.kr 로 문의주시기 바랍니다.
